@@ -1,3 +1,59 @@
+$widthCell: 100px;
+$heightCell: 100px;
+$coloredCell:  #eee;
+
+$weekDays: ("mon", "tue", "wed", "thu", "fri", "sat", "sun");
+
+@for $i from 1 through 31 {
+  .calendar div:nth-child(#{$i})::after {
+    content: "#{$i}";
+  }
+}
+
+@for $i from 28 through 31 {
+  .calendar-#{$i} div:nth-child(#{$i}) ~ div {
+    display: none;
+  }
+}
+
+$i: 1;
+@each $item in $weekDays {
+  .calendar-#{$item} {
+    div:first-child {
+      margin-left: (($widthCell + 1px)) * ($i - 1) + 1px;
+    }
+  }
+  $i: $i + 1;
+}
+
 body {
   margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+}
+
+.calendar {
+  width: ($widthCell + 1) * 7;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 50px;
+
+  div {
+    width: $widthCell;
+    height: $heightCell;
+    background-color: $coloredCell;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    margin: 0 0 1px 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      transform: translate(0, -20px);
+      background-color: pink;
+    }
+  }
 }
